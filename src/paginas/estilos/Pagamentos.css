@@ -1,0 +1,439 @@
+.pagamentos {
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 60%, #fbfcff 100%);
+  border: 1px solid #eef1f5;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.06);
+}
+
+/* =========================
+   TOPO
+========================= */
+.pagamentos-topo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f0f2f6;
+}
+
+.pagamentos-titulo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pagamentos-titulo h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.4px;
+  color: #0f172a;
+}
+
+.pagamentos-subtitulo {
+  font-size: 13px;
+  color: #667085;
+  font-weight: 500;
+}
+
+/* =========================
+   CONTROLE MÊS
+========================= */
+.controle-mes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f7f9fc;
+  border: 1px solid #e9eef5;
+  padding: 8px 10px;
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.btn-mes {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid #e3e8ef;
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+  color: #1f2937;
+  transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn-mes:hover {
+  border-color: #cfd8e3;
+  box-shadow: 0 6px 14px rgba(16, 24, 40, 0.08);
+  transform: translateY(-1px);
+}
+
+.btn-mes:active {
+  transform: translateY(0px);
+  box-shadow: none;
+}
+
+.mes-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  min-width: 86px;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+/* =========================
+   BOTÃO NOVO
+========================= */
+.btn-novo {
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(25, 118, 210, 0.35);
+  background: linear-gradient(180deg, #1e88e5 0%, #1976d2 100%);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 10px 18px rgba(25, 118, 210, 0.22);
+}
+
+.btn-novo:hover {
+  opacity: 0.96;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 22px rgba(25, 118, 210, 0.28);
+}
+
+.btn-novo:active {
+  transform: translateY(0px);
+  box-shadow: 0 8px 14px rgba(25, 118, 210, 0.2);
+}
+
+/* =========================
+   RESUMO
+========================= */
+.resumo-mes {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.resumo-card {
+  border: 1px solid #eef1f5;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 8px 18px rgba(16, 24, 40, 0.04);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.resumo-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(16, 24, 40, 0.06);
+}
+
+.resumo-card.alerta {
+  border-color: #ffd6d6;
+  background: linear-gradient(180deg, #fff7f7 0%, #ffffff 100%);
+}
+
+.resumo-label {
+  font-size: 12px;
+  color: #667085;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.resumo-valor {
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+/* =========================
+   TABELA
+========================= */
+.tabela-wrapper {
+  margin-top: 16px;
+  border: 1px solid #eef1f5;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 10px 22px rgba(16, 24, 40, 0.04);
+}
+
+.tabela-pagamentos {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+}
+
+.tabela-pagamentos thead th {
+  text-align: left;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 800;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #fbfcfe 0%, #f7f9fc 100%);
+  border-bottom: 1px solid #eef1f5;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.tabela-pagamentos tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #f1f4f8;
+  font-size: 14px;
+  color: #111827;
+}
+
+.tabela-pagamentos tbody tr:nth-child(even) td {
+  background: #fcfdff;
+}
+
+.tabela-pagamentos tbody tr:hover td {
+  background: #f6fbff;
+}
+
+/* =========================
+   LINHA NOVA (FORM)
+========================= */
+.linha-nova td {
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.tabela-pagamentos input[type="date"],
+.tabela-pagamentos input[type="number"],
+.tabela-pagamentos select {
+  width: 100%;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid #dbe2ea;
+  padding: 0 12px;
+  outline: none;
+  background: #fff;
+  font-size: 13px;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.tabela-pagamentos input[type="date"]:focus,
+.tabela-pagamentos input[type="number"]:focus,
+.tabela-pagamentos select:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.15);
+}
+
+/* =========================
+   AÇÕES
+========================= */
+.acoes {
+  white-space: nowrap;
+}
+
+.btn-acao {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid #e3e8ef;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 900;
+  margin-right: 6px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+
+.btn-acao:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(16, 24, 40, 0.08);
+}
+
+.btn-acao:active {
+  transform: translateY(0px);
+  box-shadow: none;
+}
+
+.btn-acao.ok {
+  border-color: #bfe7cb;
+  background: linear-gradient(180deg, #f1fff5 0%, #ffffff 100%);
+}
+
+.btn-acao.cancelar {
+  border-color: #ffd1d1;
+  background: linear-gradient(180deg, #fff3f3 0%, #ffffff 100%);
+}
+
+/* =========================
+   AVISO PARCIAL
+========================= */
+.aviso-parcial {
+  padding: 14px 16px;
+  border: 1px solid #e1ecff;
+  background: linear-gradient(180deg, #f6f9ff 0%, #ffffff 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(16, 24, 40, 0.04);
+}
+
+.aviso-topo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.aviso-topo strong {
+  font-weight: 900;
+}
+
+.aviso-opcoes {
+  margin-top: 10px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #111827;
+}
+
+.aviso-opcoes label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================
+   VAZIO / LOADING
+========================= */
+.vazio {
+  text-align: center;
+  padding: 18px;
+  color: #667085;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 860px) {
+  .resumo-mes {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-novo {
+    width: 100%;
+  }
+
+  .controle-mes {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pagamentos-topo {
+    align-items: stretch;
+  }
+}
+
+/* =========================
+   CHIPS
+========================= */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.chip-neutro {
+  background: #f7f9fc;
+  border-color: #e6ecf5;
+  color: #334155;
+}
+
+.chip-ok {
+  background: #ecfdf3;
+  border-color: #b7ebc6;
+  color: #067647;
+}
+
+.chip-erro {
+  background: #fff1f1;
+  border-color: #ffc7c7;
+  color: #b42318;
+}
+
+/* =========================
+   BADGE CONTAGEM
+========================= */
+.badge-contagem {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+/* =========================
+   ALINHAMENTOS PREMIUM
+========================= */
+.tabela-pagamentos th:nth-child(4),
+.tabela-pagamentos td:nth-child(4) {
+  text-align: right;
+}
+
+.tabela-pagamentos th:nth-child(5),
+.tabela-pagamentos td:nth-child(5) {
+  text-align: center;
+}
+
+/* =========================
+   VALOR PREMIUM
+========================= */
+.td-valor {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.td-valor-nao {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* =========================
+   LINHA "NÃO ACERTOU" SUAVE
+========================= */
+.linha-nao-acertou td {
+  background: #fafafa;
+}
+
+.linha-nao-acertou:hover td {
+  background: #f6f6f6;
+}
+
+/* =========================
+   ZEBRA PREMIUM (suave)
+========================= */
+.tabela-pagamentos tbody tr:nth-child(even) td {
+  background: #fbfcfe;
+}
+
+.tabela-pagamentos tbody tr:hover td {
+  background: #f6fbff;
+}

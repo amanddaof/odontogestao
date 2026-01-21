@@ -1,0 +1,60 @@
+.rodape-login {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  border-top: 1px solid #eaeaea;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+.rodape-login strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.rodape-login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+
+  color: #16a34a; /* verde premium */
+  background: #ecfdf3; /* fundo bem leve */
+  border: 1px solid #bbf7d0;
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  transition: all 0.15s ease;
+}
+
+.rodape-login-link:hover {
+  color: #15803d;
+  background: #dcfce7;
+  border-color: #86efac;
+  transform: translateY(-1px);
+}
+
+.rodape-login-link:active {
+  transform: translateY(0px);
+}
+
+.wpp-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

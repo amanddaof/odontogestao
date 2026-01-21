@@ -1,0 +1,311 @@
+/* =========================
+   RECIBO — ODONTOGESTÃO
+   Bonito na tela + perfeito para impressão
+========================= */
+
+.recibo {
+  max-width: 900px;
+  margin: 0 auto;
+
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 70%, #fbfcff 100%);
+  border: 1px solid #eef1f5;
+  border-radius: 18px;
+
+  padding: 22px;
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.06);
+
+  font-family: "Times New Roman", Georgia, serif;
+  color: #0f172a;
+}
+
+/* =========================
+   TOPO (voltar + imprimir)
+========================= */
+.topo-recibo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f0f2f6;
+}
+
+.topo-recibo a {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.topo-recibo a:hover {
+  text-decoration: underline;
+}
+
+.topo-recibo button {
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(25, 118, 210, 0.35);
+  background: linear-gradient(180deg, #1e88e5 0%, #1976d2 100%);
+  color: #fff;
+
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+
+  transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 10px 18px rgba(25, 118, 210, 0.18);
+}
+
+.topo-recibo button:hover {
+  opacity: 0.96;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 22px rgba(25, 118, 210, 0.22);
+}
+
+.topo-recibo button:active {
+  transform: translateY(0px);
+  box-shadow: 0 8px 14px rgba(25, 118, 210, 0.16);
+}
+
+/* =========================
+   “PAPEL” DO RECIBO (área interna)
+========================= */
+.recibo::before {
+  content: "";
+  display: block;
+  height: 0;
+}
+
+/* bloco interno com cara de folha */
+.recibo {
+  position: relative;
+}
+
+.recibo .titulo-recibo,
+.recibo .dados-recibo,
+.recibo .total-recibo,
+.recibo .texto-recibo,
+.recibo .assinatura {
+  background: #ffffff;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+.titulo-recibo {
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin: 8px 0 28px 0;
+  color: #0f172a;
+  font-weight: 900;
+}
+
+/* =========================
+   DADOS (linha dupla)
+========================= */
+.dados-recibo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+
+  font-size: 14px;
+  color: #111827;
+  margin-bottom: 16px;
+}
+
+.dados-recibo strong {
+  font-weight: 900;
+}
+
+/* inputs do recibo */
+.dados-recibo select,
+.dados-recibo input[type="date"] {
+  height: 38px;
+  border-radius: 12px;
+  border: 1px solid #dbe2ea;
+  padding: 0 10px;
+  font-size: 13px;
+  outline: none;
+  background: #ffffff;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.dados-recibo select:focus,
+.dados-recibo input[type="date"]:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.14);
+}
+
+/* =========================
+   LINHA DIVISÓRIA
+========================= */
+.recibo hr {
+  border: none;
+  border-top: 1px solid #0f172a;
+  opacity: 0.25;
+  margin: 18px 0;
+}
+
+/* =========================
+   TOTAL
+========================= */
+.total-recibo {
+  font-size: 15px;
+  margin-top: 8px;
+  color: #0f172a;
+  font-weight: 900;
+}
+
+/* =========================
+   TEXTO DO RECIBO
+========================= */
+.texto-recibo {
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.65;
+  text-align: justify;
+  color: #111827;
+}
+
+/* =========================
+   ASSINATURA
+========================= */
+.assinatura {
+  margin-top: 52px;
+  font-size: 14px;
+  color: #111827;
+}
+
+.assinatura p {
+  margin: 0;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 720px) {
+  .recibo {
+    padding: 18px;
+  }
+
+  .titulo-recibo {
+    font-size: 18px;
+    margin-bottom: 22px;
+  }
+
+  .dados-recibo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topo-recibo button {
+    width: 100%;
+  }
+}
+
+/* =========================
+   IMPRESSÃO (A4 limpo)
+========================= */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+  }
+
+  /* esconde tudo fora do recibo */
+  body * {
+    visibility: hidden;
+  }
+
+  .recibo,
+  .recibo * {
+    visibility: visible;
+  }
+
+  /* remove “cara de app” no papel */
+  .recibo {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    max-width: none;
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: #ffffff;
+
+    padding: 0;
+    margin: 0;
+  }
+
+  /* remove topo (voltar/imprimir) */
+  .topo-recibo,
+  button,
+  a {
+    display: none !important;
+  }
+
+  /* garante fonte boa no papel */
+  .titulo-recibo {
+    margin-top: 0;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 2cm;
+}
+
+/* =========================
+   RODAPÉ (carimbo discreto)
+========================= */
+.rodape-recibo {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(15, 23, 42, 0.18);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* se preferir NÃO imprimir o rodapé, deixa assim */
+@media print {
+  .rodape-recibo {
+    display: none;
+  }
+}
+
+/* Por padrão: impressão escondida */
+.so-imprimir {
+  display: none;
+}
+
+/* Na impressão: mostra texto e esconde inputs */
+@media print {
+  .nao-imprimir {
+    display: none !important;
+  }
+
+  .so-imprimir {
+    display: inline-block !important;
+    font-weight: 700;
+    padding-left: 6px;
+  }
+}

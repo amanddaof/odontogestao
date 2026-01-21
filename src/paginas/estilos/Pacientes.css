@@ -1,0 +1,241 @@
+.pacientes {
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 60%, #fbfcff 100%);
+  border: 1px solid #eef1f5;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.06);
+}
+
+/* =========================
+   TOPO
+========================= */
+.pacientes-topo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f0f2f6;
+}
+
+.pacientes-topo h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.4px;
+  color: #0f172a;
+}
+
+.contador {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #667085;
+  font-weight: 500;
+}
+
+/* =========================
+   BOTÃO NOVO (mesmo do Pagamentos)
+========================= */
+.botao-novo {
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(25, 118, 210, 0.35);
+  background: linear-gradient(180deg, #1e88e5 0%, #1976d2 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.12s ease, opacity 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 8px 14px rgba(25, 118, 210, 0.18);
+}
+
+.botao-novo:hover {
+  opacity: 0.96;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 18px rgba(25, 118, 210, 0.24);
+}
+
+.botao-novo:active {
+  transform: translateY(0px);
+  box-shadow: 0 6px 12px rgba(25, 118, 210, 0.16);
+}
+
+/* =========================
+   LISTA WRAPPER (igual tabela-wrapper)
+========================= */
+.lista-pacientes {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* =========================
+   ITEM (linha premium clean)
+========================= */
+.item-paciente {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #eef1f5;
+  border-radius: 16px;
+  background: #ffffff;
+
+  box-shadow: 0 10px 22px rgba(16, 24, 40, 0.04);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.item-paciente:hover {
+  transform: translateY(-1px);
+  border-color: #e3e8ef;
+  box-shadow: 0 14px 26px rgba(16, 24, 40, 0.06);
+}
+
+/* =========================
+   INFO
+========================= */
+.info-linha {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  min-width: 0;
+}
+
+.nome {
+  font-weight: 800;
+  color: #0f172a;
+  font-size: 14px;
+}
+
+.separador {
+  color: #cbd5e1;
+  font-weight: 700;
+}
+
+.mensalidade {
+  font-size: 13px;
+  color: #667085;
+  font-weight: 600;
+}
+
+.valor-debito {
+  font-size: 13px;
+  color: #b42318;
+  font-weight: 800;
+}
+
+/* =========================
+   AÇÕES
+========================= */
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* =========================
+   STATUS (igual chip)
+========================= */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  border: 1px solid transparent;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.status.ok {
+  background: #ecfdf3;
+  border-color: #b7ebc6;
+  color: #067647;
+}
+
+.status.debito {
+  background: #fff1f1;
+  border-color: #ffc7c7;
+  color: #b42318;
+}
+
+/* =========================
+   BOTÃO DETALHES (premium clean)
+========================= */
+.botao-detalhes {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(25, 118, 210, 0.35);
+  background: #ffffff;
+  color: #1976d2;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.botao-detalhes:hover {
+  transform: translateY(-1px);
+  background: rgba(25, 118, 210, 0.06);
+  box-shadow: 0 10px 18px rgba(16, 24, 40, 0.08);
+}
+
+.botao-detalhes:active {
+  transform: translateY(0px);
+  box-shadow: none;
+}
+
+/* =========================
+   RESPONSIVO (mesmo padrão do Pagamentos)
+========================= */
+@media (max-width: 860px) {
+  .pacientes-topo {
+    align-items: stretch;
+  }
+
+  .botao-novo {
+    width: 100%;
+  }
+
+  .item-paciente {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .acoes {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .botao-detalhes {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* =========================
+   ZEBRA SUAVE (igual tabela de Pagamentos)
+========================= */
+.lista-pacientes .item-paciente:nth-child(even) {
+  background: #fbfcfe;
+}
+
+.lista-pacientes .item-paciente:hover {
+  background: #f6fbff;
+}
