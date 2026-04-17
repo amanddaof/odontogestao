@@ -7,25 +7,37 @@ export async function buscarPacientes() {
   let query = supabase
     .from("pacientes")
     .select(`
+  id,
+  nome,
+  mensalidade,
+  unidade_id,
+  profissional_id,
+
+  cobrancas (
+    id,
+    valor_total,
+    valor_pago,
+    status
+  ),
+
+  pagamentos (
+    id,
+    valor,
+    data_pagamento,
+    formas_pagamento ( nome ),
+    cobrancas (
       id,
-      nome,
-      mensalidade,
-      unidade_id,
-      profissional_id,
-      pagamentos (
-        id,
-        valor,
-        tipo,
-        formas_pagamento ( nome )
-      )
-    `)
+      descricao,
+      procedimentos ( descricao )
+    )
+  )
+`)
     .order("nome", { ascending: true });
 
   if (unidadeId) {
     query = query.eq("unidade_id", Number(unidadeId));
   }
 
-  // ✅ filtro principal pra não misturar pacientes
   if (profissionalId) {
     query = query.eq("profissional_id", Number(profissionalId));
   }
@@ -72,9 +84,15 @@ export async function buscarPacientePorId(id) {
       pagamentos (
         id,
         valor,
-        tipo,
         data_pagamento,
-        formas_pagamento ( nome )
+        formas_pagamento ( nome ),
+        cobrancas (
+          id,
+          descricao,
+          valor_total,
+          valor_pago,
+          procedimentos ( descricao )
+        )
       )
     `)
     .eq("id", id);
@@ -83,7 +101,6 @@ export async function buscarPacientePorId(id) {
     query = query.eq("unidade_id", Number(unidadeId));
   }
 
-  // ✅ garante que um profissional não abre paciente do outro
   if (profissionalId) {
     query = query.eq("profissional_id", Number(profissionalId));
   }
@@ -100,8 +117,6 @@ export async function buscarPacientePorId(id) {
 
 /**
  * ✅ Insere novo paciente
- * - salva automaticamente na unidade selecionada
- * - salva também o profissional_id logado ✅
  */
 export async function inserirPaciente(dados) {
   const unidadeId = localStorage.getItem("unidade_id");
