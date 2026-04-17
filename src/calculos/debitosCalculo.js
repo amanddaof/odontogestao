@@ -1,63 +1,40 @@
 export function calcularResumoFinanceiroPaciente(paciente) {
-  const mensalidade = Number(paciente?.mensalidade || 0);
-
-  const pagamentos = Array.isArray(paciente?.pagamentos)
-    ? paciente.pagamentos
+  const cobrancas = Array.isArray(paciente?.cobrancas)
+    ? paciente.cobrancas
     : [];
 
-  // normaliza tipo
-  const pagamentosNormalizados = pagamentos.map(p => ({
-    ...p,
-    valor: Number(p.valor || 0),
-    tipo: p.tipo || "mensalidade" // fallback importante
-  }));
+  let valorDebito = 0;
+  let quantidadeDebitos = 0;
 
-  const mensalidades = pagamentosNormalizados.filter(p => p.tipo === "mensalidade");
-  const complementos = pagamentosNormalizados.filter(p => p.tipo === "complemento");
+  cobrancas.forEach((c) => {
+    const valorTotal = Number(c.valor_total || 0);
+    const valorPago = Number(c.valor_pago || 0);
 
-  const totalMensalidades = mensalidades.length;
+    const restante = Math.max(0, valorTotal - valorPago);
 
-  const totalPagoMensalidades = mensalidades.reduce(
-    (soma, p) => soma + p.valor,
-    0
-  );
+    if (restante > 0) {
+      valorDebito += restante;
+      quantidadeDebitos += 1;
+    }
+  });
 
-  const totalPagoComplementos = complementos.reduce(
-    (soma, p) => soma + p.valor,
-    0
-  );
-
-  const totalPagoGeral = totalPagoMensalidades + totalPagoComplementos;
-
-  const totalEsperado = totalMensalidades * mensalidade;
-
-  const debitoBruto = Math.max(0, totalEsperado - totalPagoMensalidades);
-
-  const debitoFinal = Math.max(0, debitoBruto - totalPagoComplementos);
-
-  const temDebito = debitoFinal > 0;
-
-  const naoAcertou = mensalidades.filter(
-    p => p.formas_pagamento?.nome === "Não acertou"
-  ).length;
-
-  const parciais = mensalidades.filter(p => {
-    return p.valor > 0 && p.valor < mensalidade;
-  }).length;
-
-  const pagasInteiras = mensalidades.filter(p => p.valor >= mensalidade).length;
+  const temDebito = valorDebito > 0;
 
   return {
-    mensalidade,
-    totalMensalidades,
-    naoAcertou,
-    parciais,
-    pagasInteiras,
-    totalEsperado,
-    totalPagoMensalidades,
-    totalPagoComplementos,
-    totalPagoGeral,
-    debitoFinal,
-    temDebito
+    // ⚠️ mantive essas props pra não quebrar nada
+    mensalidade: paciente?.mensalidade || 0,
+
+    quantidadeDebitos,
+    valorDebito,
+    temDebito,
+
+    // 🔥 compatibilidade com o que já existia
+    debitoFinal: valorDebito,
+    totalPagoGeral: 0,
+    totalEsperado: 0,
+    totalMensalidades: 0,
+    naoAcertou: 0,
+    parciais: 0,
+    pagasInteiras: 0
   };
 }

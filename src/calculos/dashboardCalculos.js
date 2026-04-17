@@ -90,33 +90,15 @@ export function calcularResumoMensal({ pagamentosMes, pagamentosPagosMes, pacien
  */
 
 export function calcularResumoDiario({
-  pagamentosMes,
   pagamentosPagosMes,
-  dataSelecionada,
-  pacientes
+  dataSelecionada
 }) {
   const totalRecebidoDia = (pagamentosPagosMes || [])
     .filter(p => somenteDataYYYYMMDD(p.data_pagamento) === dataSelecionada)
     .reduce((s, p) => s + Number(p.valor || 0), 0);
 
-  const naoAcertouDia = (pagamentosMes || [])
-    .filter(p => Number(p.forma_pagamento_id) === 11) // <-- NÃO ACERTOU
-    .filter(p => somenteDataYYYYMMDD(p.data_pagamento) === dataSelecionada);
-
-  const totalMensalidadesNaoAcertouDia = naoAcertouDia.reduce((soma, p) => {
-    const paciente = (pacientes || []).find(
-      pc => Number(pc.id) === Number(p.paciente_id)
-    );
-    return soma + Number(paciente?.mensalidade || 0);
-  }, 0);
-
-  const totalEsperadoDia = totalRecebidoDia + totalMensalidadesNaoAcertouDia;
-  const debitoDia = Math.max(0, totalEsperadoDia - totalRecebidoDia);
-
   return {
-    totalRecebidoDia,
-    totalEsperadoDia,
-    debitoDia
+    totalRecebidoDia
   };
 }
 
