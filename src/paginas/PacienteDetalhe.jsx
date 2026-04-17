@@ -1,47 +1,36 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { buscarPacientePorId } from "../servicos/pacientesServico";
-import { calcularResumoFinanceiroPaciente } from "../calculos/debitosCalculo";
-import { formatarDataBR } from "../utils/data";
 import "./estilos/PacienteDetalhe.css";
-import { formatarCPF, formatarTelefone } from "../utils/formatadores";
 
 export default function PacienteDetalhe() {
   const { id } = useParams();
 
   const [paciente, setPaciente] = useState(null);
-  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
     carregarPaciente();
-  }, [id]);
+  }, []);
 
   async function carregarPaciente() {
     try {
-      setCarregando(true);
-      const dados = await buscarPacientePorId(id);
+      const dados = await buscarPacientePorId(Number(id));
       setPaciente(dados);
-    } catch (e) {
-      console.error("Erro ao buscar paciente:", e);
-      setPaciente(null);
-    } finally {
-      setCarregando(false);
+    } catch (err) {
+      console.error("Erro ao carregar paciente:", err);
     }
   }
 
-  if (carregando) return <p>Carregando paciente...</p>;
-  if (!paciente) return <p>Paciente não encontrado.</p>;
+  if (!paciente) return <p>Carregando...</p>;
 
-  const resumo = calcularResumoFinanceiroPaciente(paciente);
-
-  const pagamentosOrdenados = [...(paciente.pagamentos || [])].sort(
-    (a, b) => new Date(b.data_pagamento) - new Date(a.data_pagamento)
-  );
+  const temDebito = false; // depois vamos integrar com cálculo real
 
   return (
     <div className="paciente-detalhe">
+
+      {/* TOPO */}
       <div className="topo-detalhe">
-        <Link className="voltar" to="/pacientes">
+        <Link to="/pacientes" className="voltar">
           ← Voltar
         </Link>
 
@@ -59,125 +48,90 @@ export default function PacienteDetalhe() {
           >
             Recibo
           </Link>
+
+          <Link
+            className="btn-secundario"
+            to={`/pacientes/${paciente.id}/procedimentos`}
+          >
+            Procedimentos
+          </Link>
         </div>
       </div>
 
+      {/* CABEÇALHO */}
       <div className="cabecalho-paciente">
-        <h1 style={{ margin: 0 }}>{paciente.nome}</h1>
+        <h1>{paciente.nome}</h1>
 
         <div className="resumo">
-          <span className={`status ${resumo.temDebito ? "debito" : "ok"}`}>
-            {resumo.temDebito ? "Com débito" : "Em dia"}
+          <span className={`status ${temDebito ? "debito" : "ok"}`}>
+            {temDebito ? "Com débito" : "Em dia"}
           </span>
 
           <span>
-            <strong>Mensalidade:</strong>{" "}
-            R$ {Number(resumo.mensalidade).toFixed(2)}
+            Mensalidade: R$ {Number(paciente.mensalidade || 0).toFixed(2)}
           </span>
 
-          <span className={`debito-total ${resumo.temDebito ? "ativo" : "neutro"}`}>
-            <strong>Em aberto:</strong>{" "}
-            R$ {Number(resumo.debitoFinal).toFixed(2)}
+          <span className={`debito-total ${temDebito ? "ativo" : "neutro"}`}>
+            Débito: R$ 0,00
           </span>
-        </div>
-
-        <div className="resumo-historico">
-          <div>
-            <strong>{resumo.totalMensalidades}</strong>
-            <span>Mensalidades</span>
-          </div>
-
-          <div>
-            <strong>{resumo.naoAcertou}</strong>
-            <span>Não acertou</span>
-          </div>
-
-          <div>
-            <strong>R$ {Number(resumo.totalEsperado).toFixed(2)}</strong>
-            <span>Total esperado</span>
-          </div>
-
-          <div>
-            <strong>R$ {Number(resumo.totalPagoGeral).toFixed(2)}</strong>
-            <span>Total pago</span>
-          </div>
-
-          <div>
-            <strong>R$ {Number(resumo.debitoFinal).toFixed(2)}</strong>
-            <span>Débito</span>
-          </div>
         </div>
       </div>
 
+      {/* CONTEÚDO */}
       <div className="conteudo-inferior">
+
+        {/* INFO CADASTRAL */}
         <div className="info-cadastral">
-  <h2>Informações do paciente</h2>
+          <h2>Informações</h2>
 
-  <div className="linha-info">
-  <span className="label">CPF:</span>
-  <span>{formatarCPF(paciente.cpf)}</span>
-</div>
+          <div className="linha-info">
+            <span className="label">CPF</span>
+            <span>{paciente.cpf || "-"}</span>
+          </div>
 
-<div className="linha-info">
-  <span className="label">Telefone:</span>
-  <span>{formatarTelefone(paciente.telefone)}</span>
-</div>
+          <div className="linha-info">
+            <span className="label">Telefone</span>
+            <span>{paciente.telefone || "-"}</span>
+          </div>
 
-  <div className="linha-info">
-    <span className="label">Endereço:</span>
-    <span>{paciente.endereco || "—"}</span>
-  </div>
+          <div className="linha-info">
+            <span className="label">Endereço</span>
+            <span>{paciente.endereco || "-"}</span>
+          </div>
 
-  <div className="linha-info">
-    <span className="label">Data de nascimento:</span>
-    <span>
-      {paciente.data_nascimento
-        ? new Date(paciente.data_nascimento).toLocaleDateString("pt-BR")
-        : "—"}
-    </span>
-  </div>
-</div>
-
-        <div className="historico-pagamentos">
-          <h2>Histórico</h2>
-
-          <ul className="lista-pagamentos">
-            {pagamentosOrdenados.length === 0 ? (
-              <p>Nenhum registro ainda.</p>
-            ) : (
-              pagamentosOrdenados.map(p => {
-                const naoAcertou = p.formas_pagamento?.nome === "Não acertou";
-
-                const tipoTexto =
-                  p.tipo === "complemento"
-                    ? "Complemento"
-                    : "Mensalidade";
-
-                return (
-                  <li
-                    key={p.id}
-                    className={`item-pagamento ${naoAcertou ? "nao-acertou" : ""}`}
-                  >
-                    <span className="data">
-                      {formatarDataBR(p.data_pagamento)}
-                    </span>
-
-                    <span className="forma">
-                      {p.formas_pagamento?.nome}{" "}
-                      <span style={{ color: "#777" }}>
-                        ({tipoTexto})
-                      </span>
-                    </span>
-
-                    <span className="valor">
-                      R$ {Number(p.valor || 0).toFixed(2)}
-                    </span>
-                  </li>
-                );
-              })
-            )}
-          </ul>
+          <div className="linha-info">
+            <span className="label">Nascimento</span>
+            <span>{paciente.data_nascimento || "-"}</span>
+          </div>
         </div>
+
+        {/* HISTÓRICO */}
+        <div className="historico-pagamentos">
+          <h2>Histórico de pagamentos</h2>
+
+          {paciente.pagamentos?.length === 0 ? (
+            <p>Nenhum pagamento registrado.</p>
+          ) : (
+            <ul className="lista-pagamentos">
+              {paciente.pagamentos.map((p) => (
+                <li key={p.id} className="item-pagamento">
+                  <span className="data">
+                    {p.data_pagamento || "-"}
+                  </span>
+
+                  <span className="forma">
+                    {p.formas_pagamento?.nome || "-"}
+                  </span>
+
+                  <span className="valor">
+                    R$ {Number(p.valor).toFixed(2)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
       </div>
     </div>
   );
