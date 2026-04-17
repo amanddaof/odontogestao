@@ -19,6 +19,7 @@ import Pagamentos from "./paginas/Pagamentos";
 import PacienteDetalhe from "./paginas/PacienteDetalhe";
 import PacienteNovo from "./paginas/PacienteNovo";
 import ReciboPaciente from "./paginas/ReciboPaciente";
+import Procedimentos from "./paginas/Procedimentos";
 import Login from "./paginas/Login";
 import Configuracoes from "./paginas/Configuracoes";
 
@@ -147,6 +148,11 @@ function AppConteudo() {
               </RotaPrivada>
             }
           />
+		  
+		  <Route
+  path="/pacientes/:id/procedimentos"
+  element={<Procedimentos />}
+/>
 
           <Route
             path="/pagamentos"
