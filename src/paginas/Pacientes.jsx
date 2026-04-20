@@ -55,12 +55,6 @@ export default function Pacientes() {
             <div className="info-linha">
               <strong className="nome">{paciente.nome}</strong>
 
-              <span className="separador">•</span>
-
-              <span className="mensalidade">
-                Mensalidade: R$ {Number(paciente.mensalidade || 0).toFixed(2)}
-              </span>
-
               {paciente.temDebito && (
                 <>
                   <span className="separador">•</span>

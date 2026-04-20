@@ -10,7 +10,6 @@ export default function PacienteNovo() {
 
   const [form, setForm] = useState({
     nome: "",
-    mensalidade: "",
     cpf: "",
     telefone: "",
     endereco: "",
@@ -29,11 +28,6 @@ export default function PacienteNovo() {
       return;
     }
 
-    if (!form.mensalidade) {
-      alert("Informe a mensalidade");
-      return;
-    }
-
     try {
       setSalvando(true);
 
@@ -49,7 +43,6 @@ export default function PacienteNovo() {
 
       const dados = {
         nome: form.nome.trim(),
-        mensalidade: Number(form.mensalidade || 0),
         cpf: form.cpf.trim() || null,
         telefone: form.telefone.trim() || null,
         endereco: form.endereco.trim() || null,
@@ -91,17 +84,6 @@ export default function PacienteNovo() {
                 value={form.nome}
                 onChange={e => atualizarCampo("nome", e.target.value)}
                 placeholder="Ex: Ana Costa"
-              />
-            </div>
-
-            <div className="campo">
-              <label>Mensalidade (R$) *</label>
-              <input
-                type="number"
-                step="0.01"
-                value={form.mensalidade}
-                onChange={e => atualizarCampo("mensalidade", e.target.value)}
-                placeholder="Ex: 100"
               />
             </div>
 

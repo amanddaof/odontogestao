@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { buscarPacientePorId } from "../servicos/pacientesServico";
+import { calcularDebitosPaciente } from "../calculos/pacientesCalculos";
 import "./estilos/PacienteDetalhe.css";
 
 export default function PacienteDetalhe() {
@@ -23,7 +24,7 @@ export default function PacienteDetalhe() {
 
   if (!paciente) return <p>Carregando...</p>;
 
-  const temDebito = false; // depois vamos integrar com cálculo real
+  const { temDebito, valorDebito } = calcularDebitosPaciente(paciente);
 
   return (
     <div className="paciente-detalhe">
@@ -67,12 +68,8 @@ export default function PacienteDetalhe() {
             {temDebito ? "Com débito" : "Em dia"}
           </span>
 
-          <span>
-            Mensalidade: R$ {Number(paciente.mensalidade || 0).toFixed(2)}
-          </span>
-
           <span className={`debito-total ${temDebito ? "ativo" : "neutro"}`}>
-            Débito: R$ 0,00
+            Débito: R$ {Number(valorDebito || 0).toFixed(2)}
           </span>
         </div>
       </div>
