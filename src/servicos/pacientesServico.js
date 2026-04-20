@@ -9,7 +9,6 @@ export async function buscarPacientes() {
     .select(`
   id,
   nome,
-  mensalidade,
   unidade_id,
   profissional_id,
 
@@ -66,35 +65,41 @@ export async function buscarPacientePorId(id) {
   let query = supabase
     .from("pacientes")
     .select(`
+  id,
+  nome,
+  cpf,
+  telefone,
+  endereco,
+  data_nascimento,
+  unidade_id,
+  profissional_id,
+
+  cobrancas (
+    id,
+    valor_total,
+    valor_pago,
+    status
+  ),
+
+  profissionais (
+    id,
+    nome
+  ),
+
+  pagamentos (
+    id,
+    valor,
+    data_pagamento,
+    formas_pagamento ( nome ),
+    cobrancas (
       id,
-      nome,
-      mensalidade,
-      cpf,
-      telefone,
-      endereco,
-      data_nascimento,
-      unidade_id,
-      profissional_id,
-
-      profissionais (
-        id,
-        nome
-      ),
-
-      pagamentos (
-        id,
-        valor,
-        data_pagamento,
-        formas_pagamento ( nome ),
-        cobrancas (
-          id,
-          descricao,
-          valor_total,
-          valor_pago,
-          procedimentos ( descricao )
-        )
-      )
-    `)
+      descricao,
+      valor_total,
+      valor_pago,
+      procedimentos ( descricao )
+    )
+  )
+`)
     .eq("id", id);
 
   if (unidadeId) {
