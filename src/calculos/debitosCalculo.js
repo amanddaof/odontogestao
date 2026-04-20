@@ -21,20 +21,11 @@ export function calcularResumoFinanceiroPaciente(paciente) {
   const temDebito = valorDebito > 0;
 
   return {
-    // ⚠️ mantive essas props pra não quebrar nada
-    mensalidade: paciente?.mensalidade || 0,
-
     quantidadeDebitos,
     valorDebito,
     temDebito,
 
-    // 🔥 compatibilidade com o que já existia
-    debitoFinal: valorDebito,
-    totalPagoGeral: 0,
-    totalEsperado: 0,
-    totalMensalidades: 0,
-    naoAcertou: 0,
-    parciais: 0,
-    pagasInteiras: 0
+    // mantém compatibilidade com resto do sistema
+    debitoFinal: valorDebito
   };
 }
