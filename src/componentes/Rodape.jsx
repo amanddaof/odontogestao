@@ -17,7 +17,7 @@ export default function Rodape() {
 
             <span className="rodape-dot" />
 
-            <span className="rodape-badge">v2.2.1</span>
+            <span className="rodape-badge">v2.2.2</span>
 
             <span className="rodape-ano">{ano}</span>
 

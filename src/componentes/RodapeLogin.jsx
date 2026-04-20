@@ -6,7 +6,7 @@ export default function RodapeLogin() {
   return (
     <footer className="rodape-login">
       <span>
-        Desenvolvido por <strong>Amanda Oliveira</strong> • v2.2.1 • {ano}
+        Desenvolvido por <strong>Amanda Oliveira</strong> • v2.2.2 • {ano}
       </span>
 
       <a
